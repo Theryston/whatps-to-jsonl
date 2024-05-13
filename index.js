@@ -44,6 +44,14 @@ async function main() {
                 role: message.sender === assistantName ? "assistant" : "user",
                 content: message.text,
             }))
+        const assistantMessages = messagesOpenAIFormat
+            .filter((message) => message.role === "assistant");
+        const userMessages = messagesOpenAIFormat
+            .filter((message) => message.role === "user");
+
+        if (!assistantMessages.length || !userMessages.length) {
+            continue;
+        }
 
         const finalMessages = [
             {
