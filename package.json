@@ -1,0 +1,16 @@
+{
+  "name": "whatps-to-jsonl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tiktoken": "^1.0.14"
+  }
+}
