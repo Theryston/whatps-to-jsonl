@@ -53,7 +53,7 @@ async function main() {
             ...messagesOpenAIFormat,
         ]
 
-        jsonl += JSON.stringify(finalMessages) + "\n";
+        jsonl += JSON.stringify({ messages: finalMessages }) + "\n";
         console.log(`Processed day ${day}`);
     }
 
