@@ -56,7 +56,7 @@ async function main() {
         const finalMessages = [
             {
                 role: "system",
-                content: `A normal chat between ${assistantName} and ${notAssistantPersonName}`
+                content: `A normal chat between the assistant called ${assistantName} and the user called ${notAssistantPersonName}`
             },
             ...messagesOpenAIFormat,
         ]
