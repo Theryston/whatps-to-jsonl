@@ -80,13 +80,18 @@ async function main() {
 function groupMessagesBySameDay(messages) {
     return messages
         .sort((a, b) => a.date - b.date)
-        .reduce((acc, message) => {
-            const day = message.date.toISOString().split("T")[0];
-            if (!acc[day]) {
-                acc[day] = [];
+        .reduce((acc, message, index) => {
+            try {
+                const day = message.date.toISOString().split("T")[0];
+                if (!acc[day]) {
+                    acc[day] = [];
+                }
+                acc[day].push(message);
+                return acc;
+            } catch (e) {
+                console.error(e);
+                return acc;
             }
-            acc[day].push(message);
-            return acc;
         })
 }
 
