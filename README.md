@@ -27,3 +27,11 @@ example:
 ```bash
 pnpm start "WhatsApp Chat with John.txt" "James" "output.jsonl" --append
 ```
+
+## Estimate
+
+You can estimate the cost of training with some data just typing the following command:
+
+```bash
+pnpm estimate <path-to-jsonl-file>
+```
