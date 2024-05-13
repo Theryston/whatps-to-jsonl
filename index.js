@@ -39,11 +39,20 @@ async function main() {
             continue;
         }
 
-        const messagesOpenAIFormat = dayMessages
+        let messagesOpenAIFormat = dayMessages
             .map((message) => ({
                 role: message.sender === assistantName ? "assistant" : "user",
                 content: message.text,
             }))
+
+        if (!messagesOpenAIFormat.length) {
+            continue;
+        }
+
+        if (messagesOpenAIFormat.length >= 2048) {
+            messagesOpenAIFormat = messagesOpenAIFormat.slice(0, 2047);
+        }
+
         const assistantMessages = messagesOpenAIFormat
             .filter((message) => message.role === "assistant");
         const userMessages = messagesOpenAIFormat
