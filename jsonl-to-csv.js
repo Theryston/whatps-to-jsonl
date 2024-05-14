@@ -5,6 +5,8 @@ const USAGE_MESSAGE = `Usage: pnpm jsonl-to-csv <filePath> <outputPath>`;
 async function main() {
     const filePath = process.argv[2];
     const outputPath = process.argv[3];
+    const useTxt = process.argv[4] === "--txt";
+    const uniqueFile = process.argv[5] === "--unique";
 
     if (!filePath || !outputPath) {
         console.log(USAGE_MESSAGE);
@@ -13,9 +15,11 @@ async function main() {
 
     const fileContent = await fs.promises.readFile(filePath, "utf8");
     const lines = fileContent.split("\n");
-    let csv = 'system,user_messages,assistant_messages\n';
+    let globalCsv = 'system,user_messages,assistant_messages\n';
 
-    for (const line of lines) {
+    for (let i = 0; i < lines.length; i++) {
+        let csv = 'system,user_messages,assistant_messages\n';
+        const line = lines[i];
         if (!line) continue;
 
         const { messages } = JSON.parse(line);
@@ -30,9 +34,19 @@ async function main() {
             .join("|");
 
         csv += `${system},${userMessages},${assistantMessages}\n`;
+        const outPathWithoutExtension = outputPath.split(".")[0];
+        const outPath = `${outPathWithoutExtension}.${i}.${useTxt ? "txt" : "csv"}`;
+
+        if (!uniqueFile) {
+            await fs.promises.writeFile(outPath, csv);
+        } else {
+            globalCsv += csv.slice(0, -1)
+        }
     }
 
-    await fs.promises.writeFile(outputPath, csv);
+    if (uniqueFile) {
+        await fs.promises.writeFile(outputPath, globalCsv);
+    }
 }
 
 main()
