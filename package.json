@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "estimate": "node estimate.js"
+    "estimate": "node estimate.js",
+    "jsonl-to-csv": "node jsonl-to-csv.js"
   },
   "keywords": [],
   "author": "",
