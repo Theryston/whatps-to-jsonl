@@ -28,10 +28,18 @@ async function main() {
             .filter((message) => message.role === "user")
             .map((message) => message.content)
             .join("|")
+            .split('\n')
+            .join(' ')
+            .split(',')
+            .join(' ');
         const assistantMessages = messages
             .filter((message) => message.role === "assistant")
             .map((message) => message.content)
-            .join("|");
+            .join("|")
+            .split('\n')
+            .join(' ')
+            .split(',')
+            .join(' ');
 
         csv += `${system},${userMessages},${assistantMessages}\n`;
         const outPathWithoutExtension = outputPath.split(".")[0];
@@ -40,7 +48,7 @@ async function main() {
         if (!uniqueFile) {
             await fs.promises.writeFile(outPath, csv);
         } else {
-            globalCsv += csv.slice(0, -1)
+            globalCsv += csv.split("\n").slice(1).join("\n");
         }
     }
 
