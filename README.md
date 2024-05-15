@@ -35,3 +35,11 @@ You can estimate the cost of training with some data just typing the following c
 ```bash
 pnpm estimate <path-to-jsonl-file>
 ```
+
+## Moderate
+
+You can get the output jsonl and run a moderate process that uses OpenAI's Moderation API to remove everything that is not safe from your jsonl file. Just type the following command:
+
+```bash
+pnpm moderate <path-to-jsonl-file> <path-to-output-jsonl-file>
+```
